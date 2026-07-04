@@ -352,7 +352,8 @@ address {
   background: var(--color-white);
   border-bottom: 1px solid var(--color-border-light);
   transition: box-shadow var(--transition-med), background var(--transition-med);
-  overflow: visible; /* permite que o nav mobile saia do header */
+  overflow: visible;
+  /* permite que o nav mobile saia do header */
 }
 
 .header.is-scrolled {
@@ -450,7 +451,8 @@ address {
   z-index: 99;
   border-top: 1px solid var(--color-border-light);
   overflow-y: auto;
-  pointer-events: none; /* evita bloquear cliques quando o menu está fechado */
+  pointer-events: none;
+  /* evita bloquear cliques quando o menu está fechado */
 }
 
 .header__nav.is-open {
@@ -496,7 +498,8 @@ address {
   .header__nav {
     position: static;
     inset: auto;
-    height: auto; /* reseta o height: 100svh do mobile */
+    height: auto;
+    /* reseta o height: 100svh do mobile */
     background: none;
     padding: 0;
     flex-direction: row;
@@ -507,7 +510,8 @@ address {
     flex: 1;
     justify-content: center;
     gap: 0;
-    pointer-events: auto; /* garante que os links funcionem no desktop */
+    pointer-events: auto;
+    /* garante que os links funcionem no desktop */
   }
 
   .nav__list {
@@ -649,7 +653,7 @@ address {
 /* Headline principal */
 .hero__headline {
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 6.5vw, 4rem);
+  font-size: clamp(2.6rem, 10vw, 4rem);
   font-weight: 700;
   line-height: 1.1;
   color: var(--color-white);
@@ -721,6 +725,7 @@ address {
   .hero__ctas {
     width: 100%;
   }
+
   .hero__ctas .btn {
     width: 100%;
     justify-content: center;
@@ -752,7 +757,8 @@ address {
   flex-shrink: 0;
   width: 100%;
   max-width: 340px;
-  display: none; /* Oculto em mobile */
+  display: none;
+  /* Oculto em mobile */
 }
 
 @media (min-width: 900px) {
@@ -863,19 +869,52 @@ address {
   padding-block: 2.25rem;
   border-bottom: 2px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  /* Oculta a sobra do marquee */
 }
 
+/* Faixa que vai rolar infinitamente */
+.social-proof-bar__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* O container original agora funciona como um grupo dentro da faixa */
 .social-proof-bar__inner {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
   gap: 2rem;
+  padding-right: 2rem;
+  /* Espaço antes do próximo grupo no loop */
 }
 
-@media (min-width: 640px) {
+/* Desktop: desabilita o marquee e volta ao normal */
+@media (min-width: 768px) {
+  .social-proof-bar__track {
+    animation: none;
+    width: 100%;
+    justify-content: center;
+  }
+
   .social-proof-bar__inner {
+    padding-right: 0;
     gap: 3rem;
+  }
+
+  /* Oculta a cópia no desktop, pois não vamos animar */
+  .social-proof-bar__inner.duplicate {
+    display: none;
   }
 }
 
@@ -902,14 +941,7 @@ address {
 .stat__divider {
   width: 1px;
   height: 44px;
-  background: rgba(255, 255, 255, .10);
-  display: none;
-}
-
-@media (min-width: 640px) {
-  .stat__divider {
-    display: block;
-  }
+  background: rgba(255, 255, 255, .15);
 }
 
 /* ==============================================
@@ -1127,14 +1159,12 @@ address {
   top: 28px;
   bottom: 28px;
   width: 2px;
-  background: linear-gradient(
-    to bottom,
-    var(--color-primary) 0%,
-    var(--color-tertiary) 100%
-  );
+  background: linear-gradient(to bottom,
+      var(--color-primary) 0%,
+      var(--color-tertiary) 100%);
   transform-origin: top;
   transform: scaleY(0);
-  transition: transform 1.2s cubic-bezier(.4,0,.2,1);
+  transition: transform 1.2s cubic-bezier(.4, 0, .2, 1);
 }
 
 .roadmap.is-visible::before {
@@ -1238,14 +1268,16 @@ address {
   .roadmap-step:nth-child(odd) {
     justify-content: flex-end;
     padding-right: 48px;
-    transform: translateX(-24px); /* Animação vem da esquerda */
+    transform: translateX(-24px);
+    /* Animação vem da esquerda */
   }
 
   /* Par fica na direita */
   .roadmap-step:nth-child(even) {
     margin-left: 50%;
     padding-left: 48px;
-    transform: translateX(24px); /* Animação vem da direita */
+    transform: translateX(24px);
+    /* Animação vem da direita */
   }
 
   .roadmap-step.is-visible {
@@ -1320,7 +1352,8 @@ address {
 .sobre__visual {
   position: relative;
   width: 100%;
-  max-width: 280px; /* Menor em mobile */
+  max-width: 280px;
+  /* Menor em mobile */
 }
 
 @media (min-width: 768px) {
