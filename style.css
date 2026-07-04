@@ -76,21 +76,21 @@
 
   --container-max: 1240px;
   --container-px: 1.25rem;
-  --section-py: 5rem;
+  --section-py: 4rem; /* Reduzido no mobile para 4rem (64px) */
   --header-h: 76px;
 }
 
 @media (min-width: 768px) {
   :root {
     --container-px: 2rem;
-    --section-py: 6rem;
+    --section-py: 5rem;
   }
 }
 
 @media (min-width: 1024px) {
   :root {
     --container-px: 2.5rem;
-    --section-py: 7rem;
+    --section-py: 6.5rem;
   }
 }
 
@@ -157,7 +157,13 @@ address {
   text-align: center;
   max-width: 640px;
   margin-inline: auto;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2.5rem; /* Menos margem no mobile */
+}
+
+@media (min-width: 768px) {
+  .section__header {
+    margin-bottom: 3.5rem; /* Margem normal no desktop */
+  }
 }
 
 .section__tag {
@@ -595,9 +601,9 @@ address {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2rem; /* Mais apertado no mobile */
   align-items: center;
-  padding-block: 3.5rem 4rem;
+  padding-block: 2.5rem 3.5rem; /* Menos padding no mobile */
   text-align: center;
 }
 
@@ -1175,8 +1181,8 @@ address {
 .roadmap-step {
   display: flex;
   align-items: flex-start;
-  gap: 1.75rem;
-  padding-bottom: var(--space-3xl);
+  gap: 1.25rem; /* Mais justo no celular */
+  padding-bottom: var(--space-2xl); /* Menos espaço vertical no celular */
   opacity: 0;
   transform: translateX(-24px);
   transition: opacity 0.55s ease, transform 0.55s ease;
@@ -1260,7 +1266,8 @@ address {
 
   .roadmap-step {
     width: 50%;
-    padding-bottom: var(--space-2xl);
+    padding-bottom: var(--space-3xl); /* Volta o espaçamento maior no desktop */
+    gap: 1.75rem;
     position: relative;
   }
 
@@ -1337,7 +1344,7 @@ address {
 .sobre__layout {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 2rem; /* Reduzido no mobile */
   align-items: center;
 }
 
