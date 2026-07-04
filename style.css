@@ -1102,70 +1102,186 @@ address {
 }
 
 /* ==============================================
-   COMO FUNCIONA (Passo a Passo)
+/* ==============================================
+   COMO FUNCIONA — Roadmap vertical
    ============================================== */
 .como-funciona {
   background: var(--color-bg-alt);
 }
 
-.steps-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-2xl);
-  margin-top: var(--space-3xl);
-  max-width: 900px;
-  margin-inline: auto;
+/* Container do roadmap */
+.roadmap {
+  position: relative;
+  max-width: 680px;
+  margin: var(--space-3xl) auto 0;
 }
 
+/* Linha vertical conectora */
+.roadmap::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 28px;
+  bottom: 28px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-primary) 0%,
+    var(--color-tertiary) 100%
+  );
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 1.2s cubic-bezier(.4,0,.2,1);
+}
+
+.roadmap.is-visible::before {
+  transform: scaleY(1);
+}
+
+/* Cada step do roadmap */
+.roadmap-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.75rem;
+  padding-bottom: var(--space-3xl);
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.roadmap-step:last-child {
+  padding-bottom: 0;
+}
+
+.roadmap-step.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Bolinha numerada */
+.roadmap-step__dot {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-tertiary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(42, 92, 168, 0.28);
+  position: relative;
+  z-index: 1;
+}
+
+.roadmap-step__dot span {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+/* Card de conteúdo */
+.roadmap-step__content {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl) var(--space-2xl);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(42, 92, 168, 0.08);
+  flex: 1;
+  transition: transform var(--transition-med), box-shadow var(--transition-med);
+}
+
+.roadmap-step:hover .roadmap-step__content {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+
+.roadmap-step__title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+.roadmap-step__text {
+  font-size: 0.95rem;
+  color: var(--color-dark-2);
+  line-height: 1.65;
+}
+
+/* Desktop: linha centralizada e cards alternando os lados */
 @media (min-width: 768px) {
-  .steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3xl) var(--space-2xl);
+  .roadmap {
+    max-width: 900px;
+  }
+
+  .roadmap::before {
+    left: 50%;
+    margin-left: -1px;
+    top: 0;
+    bottom: 0;
+  }
+
+  .roadmap-step {
+    width: 50%;
+    padding-bottom: var(--space-2xl);
+    position: relative;
+  }
+
+  /* Impar fica na esquerda */
+  .roadmap-step:nth-child(odd) {
+    justify-content: flex-end;
+    padding-right: 48px;
+    transform: translateX(-24px); /* Animação vem da esquerda */
+  }
+
+  /* Par fica na direita */
+  .roadmap-step:nth-child(even) {
+    margin-left: 50%;
+    padding-left: 48px;
+    transform: translateX(24px); /* Animação vem da direita */
+  }
+
+  .roadmap-step.is-visible {
+    transform: translateX(0);
+  }
+
+  /* Posiciona a bolinha exatamente no centro */
+  .roadmap-step__dot {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 64px;
+    height: 64px;
+  }
+
+  .roadmap-step:nth-child(odd) .roadmap-step__dot {
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+
+  .roadmap-step:nth-child(even) .roadmap-step__dot {
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  .roadmap-step__dot span {
+    font-size: 1.1rem;
+  }
+
+  /* Transição no hover respeita as margens */
+  .roadmap-step:nth-child(odd):hover .roadmap-step__content {
+    transform: translateX(-4px);
+  }
+
+  .roadmap-step:nth-child(even):hover .roadmap-step__content {
+    transform: translateX(4px);
   }
 }
 
-.step-card {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  background: var(--color-white);
-  padding: var(--space-2xl);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(42, 92, 168, 0.08);
-  transition: transform var(--transition-med), box-shadow var(--transition-med), border-color var(--transition-med);
-}
-
-.step-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-  border-color: rgba(42, 92, 168, 0.2);
-}
-
-.step-card__number {
-  font-family: var(--font-display);
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: var(--color-tertiary-pale);
-  line-height: 1;
-  margin-bottom: var(--space-md);
-  letter-spacing: -0.05em;
-}
-
-.step-card__title {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--color-dark);
-  margin-bottom: 0.75rem;
-  line-height: 1.2;
-}
-
-.step-card__text {
-  font-size: 0.95rem;
-  color: var(--color-dark-2);
-  line-height: 1.6;
-}
 
 /* ==============================================
    SOBRE A PROFESSORA
@@ -1219,23 +1335,26 @@ address {
   object-position: top center;
 }
 
-/* Aspa gigante tipográfica — oculta em mobile */
+/* Aspa gigante tipográfica */
 .sobre__quote-mark {
-  display: none;
+  display: block;
+  position: absolute;
+  top: -20px;
+  left: 10px;
+  font-family: var(--font-display);
+  font-size: 8rem;
+  line-height: 1;
+  color: var(--color-accent);
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 10;
 }
 
 @media (min-width: 768px) {
   .sobre__quote-mark {
-    display: block;
-    position: absolute;
-    top: -40px;
-    left: -20px;
-    font-family: var(--font-display);
+    top: -30px;
+    left: -15px;
     font-size: 10rem;
-    line-height: 1;
-    color: var(--color-accent-light);
-    opacity: 0.3;
-    pointer-events: none;
   }
 }
 

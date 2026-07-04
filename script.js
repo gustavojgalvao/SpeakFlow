@@ -268,6 +268,26 @@
           });
         }, 1500);
 
+        // --- ROADMAP ANIMATION ---
+        const roadmap = document.querySelector('.roadmap');
+        if (roadmap) {
+          ScrollTrigger.create({
+            trigger: roadmap,
+            start: "top 80%",
+            onEnter: () => roadmap.classList.add('is-visible'),
+            once: true
+          });
+
+          gsap.utils.toArray('.roadmap-step').forEach((step) => {
+            ScrollTrigger.create({
+              trigger: step,
+              start: "top 85%",
+              onEnter: () => step.classList.add('is-visible'),
+              once: true
+            });
+          });
+        }
+
         // --- PARALLAX EDITORIAL: Sobre a Professora ---
         // Intenção: Movimento sutil das aspas e da foto durante o scroll
         // para dar profundidade de revista, sem quebrar o layout.
