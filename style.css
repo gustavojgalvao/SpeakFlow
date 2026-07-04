@@ -860,8 +860,9 @@ address {
    ============================================== */
 .social-proof-bar {
   background: linear-gradient(90deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
-  padding-block: 1.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-block: 2.25rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .social-proof-bar__inner {
@@ -891,9 +892,11 @@ address {
 }
 
 .stat__label {
-  font-size: 0.8125rem;
-  color: rgba(255, 255, 255, .5);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
   text-align: center;
+  letter-spacing: 0.02em;
 }
 
 .stat__divider {
@@ -1429,6 +1432,12 @@ address {
   max-width: 90%;
   border: 1px solid rgba(42, 92, 168, 0.06);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+@media (min-width: 768px) {
+  .chat-bubble {
+    max-width: 460px;
+  }
 }
 
 .chat-bubble:hover {
