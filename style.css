@@ -602,9 +602,9 @@ address {
   display: flex;
   flex-direction: column;
   gap: 2rem; /* Mais apertado no mobile */
-  align-items: center;
+  align-items: flex-start;
   padding-block: 2.5rem 3.5rem; /* Menos padding no mobile */
-  text-align: center;
+  text-align: left;
 }
 
 @media (min-width: 900px) {
@@ -621,10 +621,10 @@ address {
 .hero__content {
   flex: 1;
   max-width: 620px;
-  text-align: center;
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 @media (min-width: 900px) {
@@ -659,7 +659,7 @@ address {
 /* Headline principal */
 .hero__headline {
   font-family: var(--font-display);
-  font-size: clamp(2.6rem, 10vw, 4rem);
+  font-size: clamp(3rem, 12vw, 4.8rem);
   font-weight: 700;
   line-height: 1.1;
   color: var(--color-white);
@@ -670,36 +670,24 @@ address {
 .headline__highlight {
   font-style: italic;
   color: var(--color-accent-light);
-  position: relative;
-  display: inline-block;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 4px;
+  text-underline-offset: 4px;
+  animation: fade-in-underline 0.8s 1s forwards;
 }
 
-/* Sublinhado animado no highlight */
-.headline__highlight::after {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-accent-light), var(--color-tertiary-light));
-  border-radius: 2px;
-  transform-origin: left;
-  animation: underline-grow 1s 0.4s cubic-bezier(.4, 0, .2, 1) both;
-}
-
-@keyframes underline-grow {
+@keyframes fade-in-underline {
   from {
-    transform: scaleX(0);
+    text-decoration-color: transparent;
   }
-
   to {
-    transform: scaleX(1);
+    text-decoration-color: var(--color-tertiary-light);
   }
 }
 
 .hero__subheadline {
-  font-size: clamp(1rem, 2.5vw, 1.1875rem);
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
   color: rgba(255, 255, 255, .78);
   line-height: 1.7;
   margin-bottom: 1.75rem;
@@ -742,12 +730,6 @@ address {
   .hero__ctas {
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-  }
-}
-
-@media (min-width: 900px) {
-  .hero__ctas {
     justify-content: flex-start;
   }
 }
@@ -1212,7 +1194,8 @@ address {
   z-index: 1;
 }
 
-.roadmap-step__dot span {
+.roadmap-step__dot span,
+.roadmap-step__dot svg {
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 800;
@@ -1310,7 +1293,8 @@ address {
     transform: translate(-50%, -50%);
   }
 
-  .roadmap-step__dot span {
+  .roadmap-step__dot span,
+.roadmap-step__dot svg {
     font-size: 1.1rem;
   }
 
@@ -1926,6 +1910,153 @@ address {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* ==============================================
+   PREÇO — Condição especial para novos alunos
+   ============================================== */
+.preco {
+  background: var(--color-bg-alt);
+}
+
+.preco__card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-2xl);
+}
+
+.preco__card {
+  background: var(--color-white);
+  border-radius: 24px;
+  box-shadow: 0 8px 40px rgba(42, 92, 168, 0.13), 0 2px 8px rgba(0,0,0,0.06);
+  padding: 2.5rem 2.5rem 2rem;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  border: 2px solid var(--color-primary-light);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.preco__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 60px rgba(42, 92, 168, 0.18), 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.preco__badge-top {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: var(--color-white);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 1rem;
+  border-radius: 100px;
+  margin-bottom: 1.2rem;
+}
+
+.preco__plan-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.preco__price-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.2rem;
+  margin-bottom: 0.4rem;
+  line-height: 1;
+}
+
+.preco__currency {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 0.6rem;
+}
+
+.preco__amount {
+  font-size: 4.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.03em;
+  font-family: 'Fraunces', serif;
+}
+
+.preco__period {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-top: 2.4rem;
+}
+
+.preco__description {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.8rem;
+  font-weight: 500;
+}
+
+.preco__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.preco__list li {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.96rem;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.preco__list li svg {
+  flex-shrink: 0;
+  stroke: var(--color-tertiary);
+}
+
+.preco__cta {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 1rem;
+  gap: 0.6rem;
+}
+
+.preco__urgency {
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+  animation: urgency-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes urgency-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+@media (max-width: 480px) {
+  .preco__card {
+    padding: 2rem 1.5rem 1.5rem;
+  }
+  .preco__amount {
+    font-size: 3.5rem;
+  }
 }
 
 /* ==============================================
